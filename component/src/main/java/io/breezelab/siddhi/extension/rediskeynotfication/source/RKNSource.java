@@ -62,7 +62,7 @@ public class RKNSource extends Source {
 	public static final String REDIS_CONN_IP = "redis.conn.ip";
 	public static final String REDIS_CONN_PORT = "redis.conn.port";
 	public static final String REDIS_KEY_PATTERN = "key.pattern";
-	private static final java.util.logging.Logger LOG = Logger.getLogger(RKNSource.class);
+	private static final Logger LOG = Logger.getLogger(RKNSource.class);
 	private SourceEventListener sourceEventListener;
 	private Map<String, String> properties = new HashMap<>();
 	private String[] aMessage;
@@ -83,7 +83,7 @@ public class RKNSource extends Source {
 		th2.setName("Jedis #1 Thread");
 		th2.start();
 		RKNSourceStreamListenerList.add(rknSourceStreamListener);
-		while(th2.isAlive()) LOG.info(th2.getName + "is running");
+		while(th2.isAlive()) LOG.info(th2.getName() + "is running");
 	}
 
 	@Override
