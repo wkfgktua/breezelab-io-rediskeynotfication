@@ -80,7 +80,7 @@ public class RKNSource extends Source {
 		LOG.info("Create Thread to running job");
 		Thread th2 = new Thread(rknSourceStreamListener);
 		LOG.info("Naming Thread");
-		th2.setName("Jedis #1 Thread");
+		th2.setName("rediskeynotification");
 		th2.start();
 		RKNSourceStreamListenerList.add(rknSourceStreamListener);
 		while(th2.isAlive()) LOG.info(th2.getName() + "is running");
