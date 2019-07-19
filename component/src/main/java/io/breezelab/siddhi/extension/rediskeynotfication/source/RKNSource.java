@@ -62,7 +62,7 @@ public class RKNSource extends Source {
 	public static final String REDIS_CONN_IP = "redis.conn.ip";
 	public static final String REDIS_CONN_PORT = "redis.conn.port";
 	public static final String REDIS_KEY_PATTERN = "key.pattern";
-	private static final Logger LOG = Logger.getLogger(RKNSource.class);
+	private static final java.util.logging.Logger LOG = Logger.getLogger(RKNSource.class);
 	private SourceEventListener sourceEventListener;
 	private Map<String, String> properties = new HashMap<>();
 	private String[] aMessage;
@@ -76,15 +76,14 @@ public class RKNSource extends Source {
 	@Override
 	public void connect(ConnectionCallback connectionCallback, State state)
 			throws ConnectionUnavailableException {
-		LOG.info("Create another Thread1");
 		RKNSourceStreamListener rknSourceStreamListener = new RKNSourceStreamListener(sourceEventListener, rJson, aMessage, r_conn_ip, r_conn_port, r_key_pattern);
-		LOG.info("Create another Thread2");
+		LOG.info("Create Thread to running job");
 		Thread th2 = new Thread(rknSourceStreamListener);
-		LOG.info("Create another Thread3");
+		LOG.info("Naming Thread");
+		th2.setName("Jedis #1 Thread");
 		th2.start();
-		LOG.info("Create another Thread4");
 		RKNSourceStreamListenerList.add(rknSourceStreamListener);
-		LOG.info("Create another Thread5");
+		while(th2.isAlive()) LOG.info(th2.getName + "is running");
 	}
 
 	@Override
